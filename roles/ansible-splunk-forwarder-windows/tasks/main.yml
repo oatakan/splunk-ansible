@@ -13,10 +13,15 @@
 - name: copy splunkforwarder package to target
   win_copy:
     src: "{{ windows_binary }}"
-    dest: "c:\\{{ windows_binary }}"
+    dest: "{{ temp_directory }}\\{{ windows_binary }}"
 
 - name: Install Remote Desktop Connection Manager locally omitting the product_id
   win_package:
-    path: "c:\\{{ windows_binary }}"
+    path: "{{ temp_directory }}\\{{ windows_binary }}"
     arguments: SET_ADMIN_USER=0 AGREETOLICENSE=yes /quiet
     state: present
+
+- name: cleanup files
+  win_file:
+    path: "{{ temp_directory }}\\{{ windows_binary }}"
+    state: absent

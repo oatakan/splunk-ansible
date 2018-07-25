@@ -8,3 +8,5 @@ splunkforwarder_version: 6.6.8
 s3_bucket_name: oa-splunk
 linux_binary: "splunkforwarder-{{ splunkforwarder_version }}-6c27a8439c1e-linux-2.6-x86_64.rpm"
 windows_binary: "splunkforwarder-{{ splunkforwarder_version }}-6c27a8439c1e-x64-release.msi"
+
+temp_directory: "{{ ansible_env.TEMP }}"
