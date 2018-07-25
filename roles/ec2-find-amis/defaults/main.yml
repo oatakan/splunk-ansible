@@ -1,0 +1,7 @@
+image_names:
+  rhel-74: RHEL-7.4_HVM_GA-20170808-x86_64-2-Hourly2-GP2
+  rhel-75: RHEL-7.5_HVM_GA-20180322-x86_64-1-Hourly2-GP2
+  cfme-58: import-ami-fg7ju3vd
+  cfme-591: import-ami-fg4soyoq
+  win-2016: Windows_Server-2016-English-Full-Base-2018.01.12
+ec2_region: us-east-1

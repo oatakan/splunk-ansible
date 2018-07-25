@@ -1,0 +1,41 @@
+- name: find ami for rhel7
+  ec2_ami_find:
+    name: "{{ image_names['rhel-74'] }}"
+    region: "{{ ec2_region }}"
+  register: rhel7_ami_find
+
+- name: find ami for windows 2016
+  ec2_ami_find:
+    name: "{{ image_names['win-2016'] }}"
+    region: "{{ ec2_region }}"
+  register: win2016_ami_find
+
+- name: find ami for cfme
+  ec2_ami_find:
+    name: "{{ image_names['cfme-591'] }}"
+    region: "{{ ec2_region }}"
+  register: cfme_ami_find
+
+- name: set ami id for rhel7
+  set_fact:
+    rhel7_ami_id: "{{ rhel7_ami_find.results[0].ami_id }}"
+  when: rhel7_ami_find.results is defined
+
+- name: set ami id for windows 2016
+  set_fact:
+    win2016_ami_id: "{{ win2016_ami_find.results[0].ami_id }}"
+  when: win2016_ami_find.results is defined
+
+- name: set ami id for cfme
+  set_fact:
+    cfme_ami_id: "{{ cfme_ami_find.results[0].ami_id }}"
+  when: cfme_ami_find.results is defined
+
+- debug:
+    var: rhel7_ami_id
+
+- debug:
+    var: win2016_ami_id
+
+- debug:
+    var: cfme_ami_id
