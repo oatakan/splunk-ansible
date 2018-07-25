@@ -6,6 +6,7 @@
     dest: "c:\{{ windows_binary }}"
     mode: get
   delegate_to: localhost
+  become: no
 
 - name: copy splunkforwarder package to target
   win_copy:

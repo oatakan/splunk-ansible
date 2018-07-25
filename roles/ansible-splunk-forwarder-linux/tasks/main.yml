@@ -30,6 +30,7 @@
     dest: "{{ linux_binary }}"
     mode: get
   delegate_to: localhost
+  become: no
 
 - name: copy splunkforwarder package to target
   copy:
