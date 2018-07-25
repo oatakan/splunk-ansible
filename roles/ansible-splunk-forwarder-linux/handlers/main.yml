@@ -1,3 +1,5 @@
 ---
 - name: restart splunk
-  command: "su - {{ splunk_nix_user }} -c '/opt/splunkforwarder/bin/splunk restart --accept-license --answer-yes'"
+  command: /opt/splunkforwarder/bin/splunk restart --accept-license --answer-yes
+  become: yes
+  become_user: "{{ splunk_nix_user }}"
