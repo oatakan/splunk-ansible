@@ -3,15 +3,15 @@
   aws_s3:
     bucket: "{{ s3_bucket_name }}"
     object: "{{ windows_binary }}"
-    dest: "c:\{{ windows_binary }}"
+    dest: "{{ windows_binary }}"
     mode: get
   delegate_to: localhost
   become: no
 
 - name: copy splunkforwarder package to target
   win_copy:
-    src: "{{ linux_binary }}"
-    dest: "c:\\{{ linux_binary }}"
+    src: "{{ windows_binary }}"
+    dest: "c:\\{{ windows_binary }}"
 
 - name: Install Remote Desktop Connection Manager locally omitting the product_id
   win_package:
