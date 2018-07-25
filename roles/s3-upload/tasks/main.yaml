@@ -1,0 +1,13 @@
+---
+- name: create an s3 bucket
+  s3_bucket:
+    name: "{{ s3_bucket_name }}"
+
+- name: upload files
+  aws_s3:
+    bucket: "{{ s3_bucket_name }}"
+    object: "{{ item }}"
+    src: "{{ files_location }}{{ item }}"
+    mode: put
+  with_items:
+    - "{{ files }}"

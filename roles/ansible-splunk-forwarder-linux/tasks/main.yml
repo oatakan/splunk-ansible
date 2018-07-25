@@ -1,0 +1,52 @@
+---
+- name: configure splunk group
+  group:
+    name: "{{ splunk_nix_group }}"
+    state: present
+  notify: restart splunk
+
+- name: configure splunk user
+  user:
+    name: "{{ splunk_nix_user }}"
+    state: present
+    createhome: no
+    expires: no
+    group: "{{ splunk_nix_group }}"
+    home: /opt/splunkforwarder
+  notify: restart splunk
+
+- name: configure splunk forwarder directory
+  file:
+    path: /opt/splunkforwarder
+    owner: "{{ splunk_nix_user }}"
+    group: "{{ splunk_nix_group }}"
+    state: directory
+  notify: restart splunk
+
+- name: copy splunkforwarder package to host
+  aws_s3:
+    bucket: "{{ s3_bucket_name }}"
+    object: "{{ linux_binary }}"
+    dest: "/tmp/{{ linux_binary }}"
+    mode: get
+
+- name: install splunk forwarder
+  command: "rpm -Uvh /tmp/{{ linux_binary }}"
+  notify: restart splunk
+
+- name: enable splunk auto-start at boot
+  shell: "/opt/splunkforwarder/bin/splunk enable boot-start -user {{ splunk_nix_user }} --accept-license --answer-yes"
+
+- name: configure Deployment Server
+  template:
+    src: deploymentclient.conf.j2
+    dest: /opt/splunkforwarder/etc/system/local/deploymentclient.conf
+    owner: "{{ splunk_nix_user }}"
+    group: "{{ splunk_nix_group }}"
+    mode: 0600
+  notify: restart splunk
+
+- name: cleanup files
+  file:
+    path: "/tmp/{{ linux_binary }}"
+    state: absent

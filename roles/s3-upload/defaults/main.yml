@@ -1,0 +1,5 @@
+s3_bucket_name: oa-splunk
+files:
+  - splunk-6.6.8-6c27a8439c1e-linux-2.6-x86_64.rpm
+  - splunkforwarder-6.6.8-6c27a8439c1e-x64-release.msi
+files_location: ../../Downloads/

@@ -1,0 +1,9 @@
+<powershell>
+net stop wuauserv
+sc config wuauserv start= disabled
+reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update" /v NoAutoUpdate /t REG_DWORD /d 1 /f net stop wuauserv
+$admin = [adsi]("WinNT://./Administrator, user")
+$admin.PSBase.Invoke("SetPassword", "{{ ansible_passoword }}")
+& $([scriptblock]::Create((New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1")))
+& $([scriptblock]::Create((New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1")))
+</powershell>

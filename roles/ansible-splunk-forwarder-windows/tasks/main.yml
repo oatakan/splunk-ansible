@@ -1,0 +1,13 @@
+---
+- name: copy splunkforwarder package to host
+  aws_s3:
+    bucket: "{{ s3_bucket_name }}"
+    object: "{{ windows_binary }}"
+    dest: "c:\{{ windows_binary }}"
+    mode: get
+
+- name: Install Remote Desktop Connection Manager locally omitting the product_id
+  win_package:
+    path: "c:\{{ windows_binary }}"
+    arguments: SET_ADMIN_USER=0 AGREETOLICENSE=yes /quiet
+    state: present

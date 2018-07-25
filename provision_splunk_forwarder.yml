@@ -1,0 +1,35 @@
+---
+- name: provision splunk forwarder on linux
+  hosts: tag_app_splunk:tag_role_linux:!tag_role_windows
+  become: yes
+  remote_user: ec2-user
+  become_method: sudo
+  gather_facts: true
+  roles:
+    - ansible-splunk-forwarder-linux
+
+- name: provision splunk forwarder on windows
+  hosts: tag_app_splunk:tag_role_windows:!tag_role_linux
+  remote_user: Administrator
+  become: no
+  vars:
+    ansible_port: 5986
+    ansible_connection: winrm
+    ansible_winrm_transport: basic
+    ansible_winrm_server_cert_validation: ignore
+  gather_facts: false
+  pre_tasks:
+    - name: wait for connection on windows nodes
+      wait_for_connection:
+        delay: 60
+        sleep: 15
+        timeout: 900
+
+    - name: gather facts
+      setup:
+      register: setup_task
+      until: setup_task|success
+      delay: 3
+      retries: 5
+  roles:
+    - ansible-splunk-forwarder-windows

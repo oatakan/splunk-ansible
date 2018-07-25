@@ -1,0 +1,6 @@
+- name: Upload files to S3
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - s3-upload

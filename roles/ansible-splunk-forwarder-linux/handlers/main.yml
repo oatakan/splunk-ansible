@@ -1,0 +1,3 @@
+---
+- name: restart splunk
+  command: "su - {{ splunk_nix_user }} -c '/opt/splunkforwarder/bin/splunk restart --accept-license --answer-yes'"
