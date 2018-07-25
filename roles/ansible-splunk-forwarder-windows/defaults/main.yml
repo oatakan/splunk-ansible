@@ -3,7 +3,7 @@ splunk_deploymentServer: 10.0.0.1
 splunk_deploymentServer_port: 8089
 splunk_nix_group: splunk
 splunk_nix_user: splunk
-splunkforwarder_version: [6,6,8]
+splunkforwarder_version: 6.6.8
 
 s3_bucket_name: oa-splunk
 linux_binary: "splunk-{{ splunkforwarder_version }}-6c27a8439c1e-linux-2.6-x86_64.rpm"
