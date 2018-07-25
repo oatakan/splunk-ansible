@@ -15,7 +15,7 @@
 - name: provision linux ec2 instances
   hosts: localhost
   become: no
-  var_files:
+  vars_files:
     - splunk-nodes-ec2.yml
   roles:
     - role: ansible-role-ec2
@@ -25,7 +25,7 @@
 - name: provision windows ec2 instances
   hosts: localhost
   become: no
-  var_files:
+  vars_files:
     - splunk-nodes-ec2.yml
   vars:
     ansible_port: 5986
