@@ -26,7 +26,7 @@
       with_sequence: count="{{ number_of_forwarders }}"
 
     - debug:
-        var: nodes
+        var: linux_generated_nodes
   roles:
     - role: ansible-role-ec2
       nodes: "{{ linux_generated_nodes }}"
