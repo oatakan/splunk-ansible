@@ -23,12 +23,18 @@
     state: directory
   notify: restart splunk
 
-- name: copy splunkforwarder package to host
+- name: copy splunkforwarder package locally
   aws_s3:
     bucket: "{{ s3_bucket_name }}"
     object: "{{ linux_binary }}"
-    dest: "/tmp/{{ linux_binary }}"
+    dest: "{{ linux_binary }}"
     mode: get
+  delegate_to: localhost
+
+- name: copy splunkforwarder package to target
+  copy:
+    src: "{{ linux_binary }}"
+    dest: "/tmp/{{ linux_binary }}"
 
 - name: install splunk forwarder
   command: "rpm -Uvh /tmp/{{ linux_binary }}"

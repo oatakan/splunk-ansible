@@ -5,9 +5,15 @@
     object: "{{ windows_binary }}"
     dest: "c:\{{ windows_binary }}"
     mode: get
+  delegate_to: localhost
+
+- name: copy splunkforwarder package to target
+  win_copy:
+    src: "{{ linux_binary }}"
+    dest: "c:\\{{ linux_binary }}"
 
 - name: Install Remote Desktop Connection Manager locally omitting the product_id
   win_package:
-    path: "c:\{{ windows_binary }}"
+    path: "c:\\{{ windows_binary }}"
     arguments: SET_ADMIN_USER=0 AGREETOLICENSE=yes /quiet
     state: present
