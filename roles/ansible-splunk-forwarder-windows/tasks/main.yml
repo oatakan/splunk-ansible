@@ -15,7 +15,7 @@
     src: "{{ windows_binary }}"
     dest: "{{ temp_directory }}\\{{ windows_binary }}"
 
-- name: Install Remote Desktop Connection Manager locally omitting the product_id
+- name: install splunkforwarder
   win_package:
     path: "{{ temp_directory }}\\{{ windows_binary }}"
     arguments: SET_ADMIN_USER=0 AGREETOLICENSE=yes /quiet
