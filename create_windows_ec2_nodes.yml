@@ -1,0 +1,26 @@
+---
+- name: Find ec2 amis
+  hosts: localhost
+  connection: local
+  become: no
+  gather_facts: no
+  vars:
+    image_names:
+      rhel-74: RHEL-7.4_HVM_GA-20170808-x86_64-2-Hourly2-GP2
+      rhel-75: RHEL-7.5_HVM_GA-20180322-x86_64-1-Hourly2-GP2
+      win-2016: Windows_Server-2016-English-Full-Base-2018.01.12
+  roles:
+    - ec2-find-amis
+
+- name: provision windows ec2 instances
+  hosts: localhost
+  become: no
+  vars_files:
+    - splunk-nodes-ec2.yml
+  vars:
+    ansible_port: 5986
+  roles:
+    - role: ansible-role-ec2
+      instance_wait_connection_timeout: 800
+      nodes: "{{ windows_nodes }}"
+      when: windows_nodes is defined

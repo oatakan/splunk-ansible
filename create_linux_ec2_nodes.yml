@@ -21,16 +21,3 @@
     - role: ansible-role-ec2
       nodes: "{{ linux_nodes }}"
       when: linux_nodes is defined
-
-- name: provision windows ec2 instances
-  hosts: localhost
-  become: no
-  vars_files:
-    - splunk-nodes-ec2.yml
-  vars:
-    ansible_port: 5986
-  roles:
-    - role: ansible-role-ec2
-      instance_wait_connection_timeout: 800
-      nodes: "{{ windows_nodes }}"
-      when: windows_nodes is defined
