@@ -1,16 +1,5 @@
 ---
 linux_nodes:
-  - name: indexer
-    role: indexer
-    app_name: splunk
-    pod_name: demo
-    instance_type: t2.micro
-    image: "{{ rhel7_ami_id|default('ami-85241def') }}" #rhel7
-    volumes:
-      - device_name: /dev/sda1
-        volume_type: gp2
-        volume_size: 10
-        delete_on_termination: true
   - name: linux_forwarder
     role: linux
     app_name: splunk

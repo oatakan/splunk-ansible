@@ -1,10 +1,11 @@
 ---
-- name: Find ec2 amis
+- name: find ec2 amis
   hosts: localhost
   connection: local
   become: no
   gather_facts: no
   vars:
+    number_of_forwarders: 1
     image_names:
       rhel-74: RHEL-7.4_HVM_GA-20170808-x86_64-2-Hourly2-GP2
       rhel-75: RHEL-7.5_HVM_GA-20180322-x86_64-1-Hourly2-GP2
@@ -17,7 +18,15 @@
   become: no
   vars_files:
     - splunk-nodes-ec2.yml
+  pre_tasks:
+    - name: generate nodes list
+      set_fact:
+        linux_generated_nodes: "{{ linux_generated_nodes|default([]) + linux_nodes }}"
+      with_sequence: count="{{ number_of_forwarders }}"
+
+    - debug:
+        var: nodes
   roles:
     - role: ansible-role-ec2
-      nodes: "{{ linux_nodes }}"
-      when: linux_nodes is defined
+      nodes: "{{ linux_generated_nodes }}"
+      when: linux_generated_nodes is defined
