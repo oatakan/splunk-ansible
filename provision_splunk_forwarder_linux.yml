@@ -1,6 +1,6 @@
 ---
 - name: provision splunk forwarder on linux
-  hosts: tag_app_splunk:tag_role_linux:!tag_role_windows
+  hosts: tag_app_splunk:&tag_role_linux:!tag_role_windows
   become: yes
   remote_user: ec2-user
   become_method: sudo

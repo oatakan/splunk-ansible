@@ -1,6 +1,6 @@
 ---
 - name: provision splunk forwarder on windows
-  hosts: tag_app_splunk:tag_role_windows:!tag_role_linux
+  hosts: tag_app_splunk:&tag_role_windows:!tag_role_linux
   remote_user: Administrator
   become: no
   vars:
