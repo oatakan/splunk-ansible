@@ -38,8 +38,9 @@
     dest: "/tmp/{{ linux_binary }}"
 
 - name: install splunk forwarder
-  command: "rpm -Uvh /tmp/{{ linux_binary }}"
-  notify: restart splunk
+  yum:
+     name: /tmp/{{ linux_binary }}
+     state: present
 
 - name: enable splunk auto-start at boot
   shell: "/opt/splunkforwarder/bin/splunk enable boot-start -user {{ splunk_nix_user }} --accept-license --answer-yes"
