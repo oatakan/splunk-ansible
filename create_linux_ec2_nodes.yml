@@ -30,4 +30,5 @@
   roles:
     - role: ansible-role-ec2
       nodes: "{{ linux_generated_nodes }}"
+      ec2_exact_count: "{{ linux_generated_nodes|length }}"
       when: linux_generated_nodes is defined
