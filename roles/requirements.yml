@@ -1,5 +1,6 @@
 - src: https://github.com/oatakan/ansible-role-ec2
   version: origin/master
 
-- src: https://github.com/oatakan/ansible-role-rhel-upgrade
+- src: https://github.com/oatakan/ansible-role-rhel_upgrade
   version: origin/master
+  name: oatakan.rhel_upgrade
